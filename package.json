@@ -1,0 +1,32 @@
+{
+  "name": "dataviz-project-starter-kit",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "vitest run",
+    "test:ui": "vitest --ui",
+    "test:watch": "vitest",
+    "preview": "vite preview",
+    "data": "make clean && make"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.2.0",
+    "@vitest/ui": "^0.30.1",
+    "prettier": "^2.8.8",
+    "prettier-plugin-svelte": "^2.10.0",
+    "svelte": "^3.58.0",
+    "vite": "^4.3.3",
+    "vitest": "^0.30.1"
+  },
+  "dependencies": {
+    "d3": "^7.8.4",
+    "mapbox-gl": "^2.14.1",
+    "pym.js": "^1.3.2",
+    "svelte-typeahead": "^4.4.1",
+    "tippecanoe": "^0.6.0",
+    "vite-plugin-svelte-svg": "^2.2.1"
+  }
+}
