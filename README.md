@@ -16,7 +16,7 @@ Staging Link: [https://apps-staging.urban.org/features/emergency-rental-assistan
 
 Production Link: [https://www.urban.org/data-tools/does-snap-cover-cost-meal-your-county-2022](https://www.urban.org/data-tools/does-snap-cover-cost-meal-your-county-2022)
 
-Data Catalogue Link: 
+Data Catalogue Link: [https://datacatalog.urban.org/dataset/rental-assistance-priority-index-20](https://datacatalog.urban.org/dataset/rental-assistance-priority-index-20)
 
 
 ## Data
