@@ -33,7 +33,7 @@ let getNumberSuperscript = (number) => {
             <div class="color-bar" style="background-color: {hoverData.hoverColor};"></div>
             <div class="location-text">
                 <div>CENSUS TRACT: <span class="yellow-underline">{hoverData.hoverTract}</span></div>
-                <div>{hoverData.hoverCounty == "District of Columbia" ? "District of Columbia" : hoverData.hoverCounty + ", " + hoverData.hoverStateName}</div>
+                <div>{(hoverData.hoverCounty == "District Of Columbia"|| hoverData.hoverStateName == "District Of Columbia")? "District of Columbia" : hoverData.hoverCounty + ", " + hoverData.hoverStateName}</div>
             </div>
         </div>
        {#if !smallerScreen}

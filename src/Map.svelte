@@ -39,6 +39,8 @@ request.onload = function() {
         let response = JSON.parse(request.response);
         initialLat = +response.latitude;
         initialLong = +response.longitude;
+        hoverData.hoverCounty = response.city;
+        hoverData.hoverStateName = response.region;
     }
 }
 

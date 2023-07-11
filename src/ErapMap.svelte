@@ -16,8 +16,8 @@ export let naColor;
 let hoverData = {
             'weHaveData': false,
             'hoverColor': "#D2D2D2",
-            'hoverCounty': "District of Columbia",
-            'hoverStateName': "District of Columbia",
+            'hoverCounty': "District Of Columbia",
+            'hoverStateName': "District Of Columbia",
             'hoverTract': "000000",
             'erapIndex': "NA",
             'hoverELI': 0,

@@ -21,7 +21,7 @@ let getNumberSuperscript = (number) => {
     {#if hoverData.weHaveData}
         <div class="color-bar" style="background-color: {hoverData.hoverColor}; "></div>
         <div class="location">
-            <div class="county">{hoverData.hoverCounty == "District of Columbia" ? "District of Columbia" : hoverData.hoverCounty + ", " + hoverData.hoverStateName}</div>
+            <div class="county">{hoverData.hoverCounty == "District Of Columbia" ? "District of Columbia" : hoverData.hoverCounty + ", " + hoverData.hoverStateName}</div>
             <div class="index">{hoverData.erapIndex}<span class="small-letters">{getNumberSuperscript(parseInt(hoverData.erapIndex))}</span> erap index | <div class="bump">census tract <span class="yellow-underline">{hoverData.hoverTract}</span></div></div>
             <div class="among-tracts">percentile among {hoverData.hoverStateName} tracts</div>
             <div class="eli"><span class="eli-num">{hoverData.hoverELI}</span> <span class="eli-text">extremely low-income renters</span></div>
