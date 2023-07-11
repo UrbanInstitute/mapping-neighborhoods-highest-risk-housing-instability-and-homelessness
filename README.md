@@ -12,6 +12,8 @@ Writer: Emily Peiffer and Wes Jenkins
 Lead Researcher: Samantha Batko
 
 
+How the data were generated: [https://github.com/UrbanInstitute/emergency-rental-assistance-priority-index](https://github.com/UrbanInstitute/emergency-rental-assistance-priority-index)
+
 Staging Link: [https://apps-staging.urban.org/features/emergency-rental-assistance-index-2/](https://apps-staging.urban.org/features/emergency-rental-assistance-index-2/)
 
 Production Link: [https://www.urban.org/data-tools/does-snap-cover-cost-meal-your-county-2022](https://www.urban.org/data-tools/does-snap-cover-cost-meal-your-county-2022)
