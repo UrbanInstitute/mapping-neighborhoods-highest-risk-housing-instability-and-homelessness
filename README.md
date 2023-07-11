@@ -16,7 +16,7 @@ How the data were generated: [https://github.com/UrbanInstitute/emergency-rental
 
 Staging Link: [https://apps-staging.urban.org/features/emergency-rental-assistance-index-2/](https://apps-staging.urban.org/features/emergency-rental-assistance-index-2/)
 
-Production Link: [https://www.urban.org/data-tools/does-snap-cover-cost-meal-your-county-2022](https://www.urban.org/data-tools/does-snap-cover-cost-meal-your-county-2022)
+Production Link: [https://www.urban.org/data-tools/mapping-neighborhoods-highest-risk-housing-instability-and-homelessness](https://www.urban.org/data-tools/mapping-neighborhoods-highest-risk-housing-instability-and-homelessness)
 
 Data Catalogue Link: [https://datacatalog.urban.org/dataset/rental-assistance-priority-index-20](https://datacatalog.urban.org/dataset/rental-assistance-priority-index-20)
 
