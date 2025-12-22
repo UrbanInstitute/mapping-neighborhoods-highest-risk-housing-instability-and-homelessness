@@ -1,5 +1,6 @@
 <script>
 //imports 
+import { logClickToGA } from "./lib/utils/analytics.js"
 import Typeahead from "svelte-typeahead"
 import SearchIcon from "./assets/icon-search.svg";
 
@@ -9,20 +10,21 @@ export let allCounties;
 
 let extract = (item) => item.location;
 
-let onTypeaheadSelect = ({detail}) => {
+/*let onTypeaheadSelect = ({detail}) => {
     selectedTractName = detail.selected
+    logClickToGA(e, "county_dropdown_click--"+detail.selected)
 
     gtag('event',
-        'button_click', //eventName
+        'dataviz_click', //eventName
         {
-            'firing-module-name':'snap-map', //firingModuleName
-            'target-classes':"dropdown-container",
-            'target-id':"",
-            'target-text':"Search for your county...",
-            'dropdown-select': detail.selected
+            'firing_module_name':'erap-map', 
+            'target_classes':"dropdown-container",
+            'target_id':"",
+            'target_text':"Search for your county...",
+            'dropdown_select': detail.selected
         }
     )
-}
+}*/
 
 let windowWidth = 0;
 $: smallScreen = windowWidth < 780; 
@@ -32,7 +34,7 @@ $: smallScreen = windowWidth < 780;
 <svelte:window bind:innerWidth={windowWidth}/>
 <div>
     <div class="search-container {smallScreen ? 'render-up': "render-down"}">
-        <Typeahead data={allCounties} {extract} showDropdownOnFocus hideLabel label="Search for your county." placeholder="Search for your county." on:select={onTypeaheadSelect}/>
+        <Typeahead data={allCounties} {extract} showDropdownOnFocus hideLabel label="Search for your county." placeholder="Search for your county." on:select={(e) => {selectedTractName = e.detail.selected; logClickToGA(e.explicitOriginalTarget, "county_dropdown_click--"+e.detail.selected)}}/>
         <div class="search">
           <SearchIcon alt="Search icon" viewBox = "0 0 48 48" width=20 height=20></SearchIcon>
       </div>
@@ -83,7 +85,7 @@ $: smallScreen = windowWidth < 780;
   }
 
   :global([data-svelte-typeahead] ul){
-    overflow: scroll;
+    overflow-y: scroll;
     max-height: 300px;
   }
 

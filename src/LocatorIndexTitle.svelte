@@ -15,6 +15,7 @@ let getNumberSuperscript = (number) => {
         default: return "th";
     }
 }
+
 </script>
 
 <div class="locatorIndexTitle" bind:clientHeight={myHeight}>

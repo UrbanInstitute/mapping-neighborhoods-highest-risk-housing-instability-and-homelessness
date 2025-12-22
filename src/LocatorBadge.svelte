@@ -1,5 +1,6 @@
 <script>
 //imports 
+import {logClickToGA} from "./lib/utils/analytics.js"
 import iconOpen from "./assets/icon-plus.png";
 import iconClose from "./assets/icon-minus.png";
 
@@ -24,6 +25,19 @@ let getNumberSuperscript = (number) => {
     }
 }
 
+/*let logClickToGA = (open) => {
+    gtag('event',
+        'dataviz_click', //eventName
+        {
+            'firing_module_name':'erap-map', 
+            'target_classes':"locatorIndexTile",
+            'target_id':"",
+            'target_text':"Locator Index Tile in top right",
+            'click_target': "locator index tile is "+open
+        }
+    )
+}*/
+
 </script>
 
 <svelte:window bind:innerWidth={windowWidth}/>
@@ -37,7 +51,7 @@ let getNumberSuperscript = (number) => {
             </div>
         </div>
        {#if !smallerScreen}
-        <div class="openclose" on:click={()=> opened = !opened} on:keypress={()=>opened = !opened}
+        <div class="openclose" on:click={(e)=> {opened = !opened; logClickToGA(e.target, "locator_badge_open_close--"+opened)}} on:keypress={(e)=>{opened = !opened; logClickToGA(e.target, "locator_badge_open_close--"+opened)}}
             style="background-image: url({opened? iconClose : iconOpen});"></div>
         {/if}
         

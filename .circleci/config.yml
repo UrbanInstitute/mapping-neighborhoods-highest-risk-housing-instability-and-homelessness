@@ -1,0 +1,181 @@
+version: 2.1
+parameters:
+  project_slug_production:
+    type: string
+    default: $CIRCLE_PROJECT_REPONAME
+executors:
+  my-executor:
+    docker:
+      - image: cimg/node:22.20.0
+    resource_class: medium
+    working_directory: ~/repo
+orbs:
+  node: circleci/node@5.1.0
+jobs:
+  test:
+    executor: my-executor
+    steps:
+      - checkout
+      - node/install-packages
+      - run: npm run test
+  build:
+    executor: my-executor
+    parameters:
+      project_slug:
+        type: string
+        default: $CIRCLE_PROJECT_REPONAME
+      mode:
+        type: string
+        default: staging
+    steps:
+      - checkout
+      - node/install-packages
+      - run:
+          name: build project
+          no_output_timeout: 20m
+          command: BASE_PATH=/features/<< parameters.project_slug >> NODE_OPTIONS="--max-old-space-size=3072" npx vite build --mode=<<parameters.mode>>
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - dist
+  deploy:
+    machine:
+      image: ubuntu-2204:2024.05.1
+    resource_class: medium
+    working_directory: ~/repo
+    parameters:
+      ssh_host:
+        type: env_var_name
+        default: SSH_NEW_STAGING_HOST
+      ssh_port:
+        type: integer
+        default: 22
+      project_slug:
+        type: string
+        default: $CIRCLE_PROJECT_REPONAME
+      deploy_files:
+        type: string
+        default: dist/
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Make sure directory exists
+          command: |
+            ssh -v -p << parameters.ssh_port >> $SSH_USER@$<< parameters.ssh_host >> "mkdir -p /var/www/apps.urban.org/features/<< parameters.project_slug >>/"
+      - run:
+          name: Deploy Code Over SSH to server
+          command: |
+            rsync -avz --exclude '.git' --exclude '.circleci' -e "ssh -v -p << parameters.ssh_port >>" ~/repo/<< parameters.deploy_files >> $SSH_USER@$<< parameters.ssh_host >>:/var/www/apps.urban.org/features/<< parameters.project_slug >>/
+  purge:
+    executor: my-executor
+    parameters:
+      project_slug:
+        type: string
+        default: $CIRCLE_PROJECT_REPONAME
+      deploy_files:
+        type: string
+        default: dist/
+      mode:
+        type: string
+        default: staging
+    steps:
+      - checkout
+      - node/install-packages
+      - attach_workspace:
+          at: ~/repo
+      - run: node .circleci/scripts/purge.js << parameters.deploy_files >> << parameters.project_slug >> --<< parameters.mode >> || true
+workflows:
+  install-test-build-deploy:
+    unless:
+      equal: [main, << pipeline.git.branch >>]
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
+          filters:
+            branches:
+              ignore: dev
+      - build:
+          name: build-dev
+          project_slug: dev/$CIRCLE_PROJECT_REPONAME
+          mode: dev
+          requires:
+            - test
+          filters:
+            branches:
+              only: dev
+      - deploy:
+          name: deploy-staging
+          requires:
+            - build
+          context:
+            - apps
+          ssh_host: SSH_NEW_STAGING_HOST
+          filters:
+            branches:
+              only: staging
+      - deploy:
+          name: deploy-dev
+          requires:
+            - build-dev
+          context:
+            - apps
+          ssh_host: SSH_NEW_STAGING_HOST
+          project_slug: dev/$CIRCLE_PROJECT_REPONAME
+          filters:
+            branches:
+              only: dev
+      - purge:
+          name: purge-dev
+          requires:
+            - deploy-dev
+          context:
+            - apps
+            - dataviz-deployments
+          project_slug: dev/$CIRCLE_PROJECT_REPONAME
+          mode: dev
+          filters:
+            branches:
+              only: dev
+      - purge:
+          name: purge-staging
+          requires:
+            - deploy-staging
+          context:
+            - apps
+            - dataviz-deployments
+          filters:
+            branches:
+              only: staging
+  install-test-build-deploy-prod:
+    when:
+      equal: [SET-ME-TO-MAIN-TO-DEPLOY, << pipeline.git.branch >>]
+    jobs:
+      - test
+      - build:
+          project_slug: << pipeline.parameters.project_slug_production >>
+          mode: production
+          requires:
+            - test
+          filters:
+            branches:
+              only: main
+      - deploy:
+          name: deploy-prod
+          requires:
+            - build
+          context:
+            - apps
+          ssh_host: SSH_PROD_HOST
+          project_slug: << pipeline.parameters.project_slug_production >>
+      - purge:
+          name: purge-prod
+          requires:
+            - deploy-prod
+          context:
+            - apps
+            - dataviz-deployments
+          mode: production
+          project_slug: << pipeline.parameters.project_slug_production >>

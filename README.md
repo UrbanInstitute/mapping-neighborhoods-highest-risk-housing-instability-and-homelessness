@@ -12,13 +12,10 @@ Writer: Emily Peiffer and Wes Jenkins
 Lead Researcher: Samantha Batko
 
 
-How the data were generated: [https://github.com/UrbanInstitute/emergency-rental-assistance-priority-index](https://github.com/UrbanInstitute/emergency-rental-assistance-priority-index)
-
 Staging Link: [https://apps-staging.urban.org/features/emergency-rental-assistance-index-2/](https://apps-staging.urban.org/features/emergency-rental-assistance-index-2/)
 
 Production Link: [https://www.urban.org/data-tools/mapping-neighborhoods-highest-risk-housing-instability-and-homelessness](https://www.urban.org/data-tools/mapping-neighborhoods-highest-risk-housing-instability-and-homelessness)
-
-Data Catalogue Link: [https://datacatalog.urban.org/dataset/rental-assistance-priority-index-20](https://datacatalog.urban.org/dataset/rental-assistance-priority-index-20)
+Data Catalogue Link: 
 
 
 ## Data
