@@ -22,7 +22,7 @@
     "vitest": "^0.30.1"
   },
   "dependencies": {
-    "d3": "^7.8.4",
+    "d3": "^7.8.5",
     "mapbox-gl": "^2.14.1",
     "pym.js": "^1.3.2",
     "svelte-typeahead": "^4.4.1",
